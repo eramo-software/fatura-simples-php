@@ -1,4 +1,4 @@
-Interface com a API do Fatura Simples em PHP
+API do Fatura Simples em PHP
 ========
 [![Build Status](https://travis-ci.org/eramo-software/fatura-simples-php.svg?branch=master)](https://travis-ci.org/eramo-software/fatura-simples-php)
 
