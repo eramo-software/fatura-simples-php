@@ -1,0 +1,30 @@
+{
+  "name": "eramo-software/fatura-simples-php",
+  "description": "Biblioteca PHP da API do Fatura Simples",
+  "keywords": [
+    "eramo software",
+    "fatura simples",
+    "nfs-e",
+    "emissão nfs-e",
+    "api"
+  ],
+  "homepage": "https://www.eramo.com.br/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eramo Software",
+      "homepage": "https://github.com/eramo-software/"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "classmap": ["lib/FaturaSimples/"]
+  }
+}

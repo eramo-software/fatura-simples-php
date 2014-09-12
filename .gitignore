@@ -1,0 +1,11 @@
+# Mac OSX
+.DS_Store
+
+# Arquivos do composoer
+/vendor/
+composer.lock
+
+# Eclipse
+.buildpath
+.project
+/.settings/
