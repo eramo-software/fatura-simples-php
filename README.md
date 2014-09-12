@@ -16,7 +16,7 @@ Você pode instalar a interface via [Composer](http://getcomposer.org/). Adicion
 
     {
       "require": {
-        "eramo-software/fatura-simples-php": "*"
+        "eramo-software/fatura-simples-php": "dev-master"
       }
     }
     
