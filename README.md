@@ -12,7 +12,7 @@ PHP 5.3+
 Instalação com Composer
 ------------
 
-Você pode instalar a interface via (Composer)[http://getcomposer.org/]. Adicionar ao seu arquivo +composer.json+:
+Você pode instalar a interface via [Composer](http://getcomposer.org/). Adicionar ao seu arquivo +composer.json+:
 
     {
       "require": {
@@ -24,7 +24,7 @@ E depois execute:
 
     composer install
 
-Para usar ou utilize o autoload do (Composer)[https://getcomposer.org/doc/00-intro.md#autoloading]:
+Para usar ou utilize o autoload do [Composer](https://getcomposer.org/doc/00-intro.md#autoloading):
 
     require_once('vendor/autoload.php');
     
