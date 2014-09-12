@@ -69,7 +69,7 @@ abstract class FaturaSimples {
 	            CURLOPT_SSLVERSION => 3,
 	            CURLOPT_CAINFO => dirname(__FILE__).'/../data/ca-certificates.crt',
 	            CURLOPT_SSL_VERIFYPEER => true,
-	            CURLOPT_SSL_VERIFYHOST => true,
+	            CURLOPT_SSL_VERIFYHOST => 2,
 	            CURLOPT_HTTPHEADER => array('Authorization: Basic '.base64_encode(self::$apiKey.":")),
 	    );
 	
