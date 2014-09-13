@@ -89,6 +89,92 @@ abstract class FaturaSimples {
 	
 	    return $ret;
 	}
+
+	/**
+	 * Realiza uma requisição à API usando cURL
+	 * @param String $path
+	 * @param String $method Método do HTTP a ser utilizado: GET, POST, DELETE
+	 * @param String[] $params
+	 * @throws Exception
+	 */
+	protected static function _request( $path, $method, $params = array() ){
+	     
+	    $curlOpts = array(
+	            CURLOPT_CUSTOMREQUEST => $method
+	    );
+	     
+	    if( $method === "POST" ){
+	         
+	        if( !is_array($params) || count($params) === 0 ){
+	            throw new Exception(__CLASS__ . ": não é possível realizar uma requisição sem parâmetros.");
+	        }
+	         
+	        $curlOpts[CURLOPT_POST] = 1;
+	    }
+	     
+	    // Adiciona os parâmetros na requisição convertendo arrays para JSON quando necessário
+	    if( is_array($params) && count($params) > 0 ){
+	        $curlOpts[CURLOPT_POSTFIELDS] = $params;
+	    }
+	     
+	    $ret = self::_curl( self::$endpoint."/".$path, $curlOpts );
+	     
+	    return $ret;
+	}
+	
+	/**
+	 * Método que deve ser implementado pelas classes dos models retornando a string para compor a URL
+	 * @return String
+	 */
+	protected abstract static function _model(); 
+
+	/**
+	 * Cria um novo registro
+	 * @param mixed[] $params
+	 * @return String JSON
+	 */
+	public static function criar( $params ){
+	    return self::_request( "api/".static::_model(), "POST" , $params );
+	}
+	
+	/**
+	 * Atualiza os dados de um registro
+	 * @param int $id
+	 * @param mixed[] $params
+	 * @return String JSON
+	 */
+	public static function atualizar( $id, $params ){
+	    return self::_request( "api/".static::_model()."/{$id}", "POST", $params );
+	}
+	
+	/**
+	 * Seleciona um registro
+	 * @param int $id
+	 * @return String JSON
+	 */
+	public static function selecionar( $id ){
+	    return self::_request( "api/".static::_model()."/{$id}", "GET" );
+	}
+	
+	/**
+	 * Deleta um registro do sistema
+	 * @param int $id
+	 * @return String JSON
+	 */
+	public static function deletar( $id ){
+	    return self::_request( "api/".static::_model()."/{$id}", "DELETE" );
+	}
+	
+	/**
+	 * Lista todos os registros
+	 * @param int $offset 
+	 * @param int $limit
+	 * @return String JSON
+	 */
+	public static function listar( $offset = 0, $limit = 10 ){
+	    return self::_request( "api/".static::_model()."?offset={$offset}&limit={$limit}", "GET" );
+	}
+	
 }
 
 

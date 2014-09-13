@@ -141,6 +141,24 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase {
         FaturaSimples_Venda::nfseCancelar( 47165, -1 );
     
     }
+    
+
+    /**
+     * Teste de listagem
+     */
+    public function testListar(){
+    
+        $result = json_decode( FaturaSimples_Venda::listar( 0, 44 ), true );
+    
+        $this->assertContains( "api/venda" , $result['request_uri'] );
+        $this->assertContains( "offset=0" , $result['request_uri'] );
+        $this->assertContains( "limit=44" , $result['request_uri'] );
+        $this->assertEquals( "GET" , $result['method'] );
+        $this->assertEquals( 0 , $result['get']['offset'] );
+        $this->assertEquals( 44 , $result['get']['limit'] );
+    
+    }
+    
 }
 
 
