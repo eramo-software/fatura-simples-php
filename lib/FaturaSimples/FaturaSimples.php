@@ -171,8 +171,22 @@ abstract class FaturaSimples {
 	 * @param int $limit
 	 * @return String JSON
 	 */
-	public static function listar( $offset = 0, $limit = 10 ){
-	    return self::_request( "api/".static::_model()."?offset={$offset}&limit={$limit}", "GET" );
+	public static function listar( $offset = 0, $limit = 10, $sortCol = null, $sortDir = null ){
+	    
+	    $params = array(
+	        "offset=".$offset,
+	        "limit=".$limit
+	    );
+	    
+	    if($sortCol !== null){
+	        $params[] = "sortCol=".$sortCol;
+	    }
+	    
+	    if($sortDir !== null){
+	        $params[] = "sortDir=".$sortDir;
+	    }
+	    
+	    return self::_request( "api/".static::_model()."?".implode("&", $params), "GET" );
 	}
 	
 }

@@ -59,7 +59,7 @@ Um caso de uso extremamente simples:
     $venda = FaturaSimples_Venda::criar( $dados );
     echo $venda;
 
-Para registrar uma venda emissão de NFS-e:
+Para registrar uma venda com emissão de NFS-e:
 
     FaturaSimples::configure("https://suaempresa.faturasimples.com.br", "SUA_CHAVE_API");
     $dados = array(
