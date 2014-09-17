@@ -151,11 +151,11 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase {
         $result = json_decode( FaturaSimples_Venda::listar( 0, 44 ), true );
     
         $this->assertContains( "api/venda" , $result['request_uri'] );
-        $this->assertContains( "offset=0" , $result['request_uri'] );
-        $this->assertContains( "limit=44" , $result['request_uri'] );
+        $this->assertContains( "inicio=0" , $result['request_uri'] );
+        $this->assertContains( "limite=44" , $result['request_uri'] );
         $this->assertEquals( "GET" , $result['method'] );
-        $this->assertEquals( 0 , $result['get']['offset'] );
-        $this->assertEquals( 44 , $result['get']['limit'] );
+        $this->assertEquals( 0 , $result['get']['inicio'] );
+        $this->assertEquals( 44 , $result['get']['limite'] );
     
     }
     

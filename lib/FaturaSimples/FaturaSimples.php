@@ -15,11 +15,18 @@ abstract class FaturaSimples {
 	protected static $endpoint = "";
 
 	/**
+	 * Versão da API sendo utilizada
+	 * @var String
+	 */
+	protected static $apiVersion = null;
+
+	/**
 	 * Reseta as configurações da classe para permitir uso em outra instância
 	 */
 	public static function reset(){
 	    self::$apiKey = "";
 	    self::$endpoint = "";
+	    self::$apiVersion = "";
 	}
 	
 	/**
@@ -27,7 +34,7 @@ abstract class FaturaSimples {
 	 * @param String $endpoint Domínio da sua instalação
 	 * @param String $apiKey Chave de api gerada dentro do Fatura Simples
 	 */
-	public static function configure($endpoint, $apiKey){
+	public static function configure($endpoint, $apiKey, $apiVersion = null){
 
 		if(strlen($apiKey) > 10){
 			self::$apiKey = $apiKey;
@@ -44,6 +51,10 @@ abstract class FaturaSimples {
 		    else {
 		        self::$endpoint = "https://{$endpoint}.faturasimples.com.br";
 		    }
+		}
+		
+		if($apiVersion !== null){
+		    self::$apiVersion = $apiVersion;
 		}
 
 		if( !strlen(self::$endpoint) || !preg_match("/^https?:\/\/([a-z0-9]{1,})/", self::$endpoint) ){
@@ -63,6 +74,12 @@ abstract class FaturaSimples {
 	    
 	    $curl = curl_init();
 	
+	    $headers = array('Authorization: Basic '.base64_encode(self::$apiKey.":"));
+	    
+	    if( self::$apiVersion !== null ){
+	        $headers[] = 'FaturaSimples-Versao: ' . self::$apiVersion;
+	    }
+	    
 	    $optionsDefault = array(
 	            CURLOPT_RETURNTRANSFER => 1,
 	            CURLOPT_URL => $url,
@@ -70,7 +87,7 @@ abstract class FaturaSimples {
 	            CURLOPT_CAINFO => dirname(__FILE__).'/../data/ca-certificates.crt',
 	            CURLOPT_SSL_VERIFYPEER => true,
 	            CURLOPT_SSL_VERIFYHOST => 2,
-	            CURLOPT_HTTPHEADER => array('Authorization: Basic '.base64_encode(self::$apiKey.":")),
+	            CURLOPT_HTTPHEADER => $headers,
 	    );
 	
 	    foreach($options as $key => $value){
@@ -167,23 +184,23 @@ abstract class FaturaSimples {
 	
 	/**
 	 * Lista todos os registros
-	 * @param int $offset 
-	 * @param int $limit
+	 * @param int $inicio 
+	 * @param int $limite
 	 * @return String JSON
 	 */
-	public static function listar( $offset = 0, $limit = 10, $sortCol = null, $sortDir = null ){
+	public static function listar( $inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null ){
 	    
 	    $params = array(
-	        "offset=".$offset,
-	        "limit=".$limit
+	        "inicio=".$inicio,
+	        "limite=".$limite
 	    );
 	    
-	    if($sortCol !== null){
-	        $params[] = "sortCol=".$sortCol;
+	    if($ordenarColuna !== null){
+	        $params[] = "ordenarColuna=".$ordenarColuna;
 	    }
 	    
-	    if($sortDir !== null){
-	        $params[] = "sortDir=".$sortDir;
+	    if($ordenarDirecao !== null){
+	        $params[] = "ordenarDirecao=".$ordenarDirecao;
 	    }
 	    
 	    return self::_request( "api/".static::_model()."?".implode("&", $params), "GET" );

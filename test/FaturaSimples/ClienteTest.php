@@ -91,11 +91,11 @@ class FaturaSimples_ClienteTest extends PHPUnit_Framework_TestCase {
         $result = json_decode( FaturaSimples_Cliente::listar( 0, 6 ), true );
     
         $this->assertContains( "api/cliente" , $result['request_uri'] );
-        $this->assertContains( "offset=0" , $result['request_uri'] );
-        $this->assertContains( "limit=6" , $result['request_uri'] );
+        $this->assertContains( "inicio=0" , $result['request_uri'] );
+        $this->assertContains( "limite=6" , $result['request_uri'] );
         $this->assertEquals( "GET" , $result['method'] );
-        $this->assertEquals( 0 , $result['get']['offset'] );
-        $this->assertEquals( 6 , $result['get']['limit'] );
+        $this->assertEquals( 0 , $result['get']['inicio'] );
+        $this->assertEquals( 6 , $result['get']['limite'] );
     
     }
     
