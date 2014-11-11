@@ -83,7 +83,6 @@ abstract class FaturaSimples {
 	    $optionsDefault = array(
 	            CURLOPT_RETURNTRANSFER => 1,
 	            CURLOPT_URL => $url,
-	            CURLOPT_SSLVERSION => 3,
 	            CURLOPT_CAINFO => dirname(__FILE__).'/../data/ca-certificates.crt',
 	            CURLOPT_SSL_VERIFYPEER => true,
 	            CURLOPT_SSL_VERIFYHOST => 2,
@@ -188,7 +187,7 @@ abstract class FaturaSimples {
 	 * @param int $limite
 	 * @return String JSON
 	 */
-	public static function listar( $inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null ){
+	public static function listar( $inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null, $filtros = null ){
 	    
 	    $params = array(
 	        "inicio=".$inicio,
@@ -201,6 +200,10 @@ abstract class FaturaSimples {
 	    
 	    if($ordenarDirecao !== null){
 	        $params[] = "ordenarDirecao=".$ordenarDirecao;
+	    }
+	    
+	    if($filtros !== null){
+	        $params[] = "filtros=".urlencode($filtros);
 	    }
 	    
 	    return self::_request( "api/".static::_model()."?".implode("&", $params), "GET" );
