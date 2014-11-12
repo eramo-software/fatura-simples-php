@@ -72,6 +72,10 @@ abstract class FaturaSimples {
 	 */
 	protected static function _curl($url, $options = array()){
 	    
+	    if( !strlen(self::$apiKey) ){
+	        throw new Exception(__CLASS__ . ": Utilize o método FaturaSimples::configure(\$endpoint, \$apiKey) antes de realizar chamadas.");
+	    }
+	    
 	    $curl = curl_init();
 	
 	    $headers = array('Authorization: Basic '.base64_encode(self::$apiKey.":"));
@@ -142,7 +146,9 @@ abstract class FaturaSimples {
 	 * Método que deve ser implementado pelas classes dos models retornando a string para compor a URL
 	 * @return String
 	 */
-	protected abstract static function _model(); 
+	protected static function _model(){
+	    throw new Exception("A classe FaturaSimples nao pode ser usada diretamente. Utilize uma das subclasses, FaturaSimples_Cliente::, por exemplo.");
+	}
 
 	/**
 	 * Cria um novo registro
