@@ -158,6 +158,117 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals( 44 , $result['get']['limite'] );
     
     }
+
+    /**
+     * Confirmação de recebimento sem data
+     * @expectedException Exception
+     * @expectedExceptionMessage Data de Recebimento precisa ser informada e estar no pad
+     */
+    public function testRecebimentoConfirmarSemData(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, null );
+    
+    }
+
+    /**
+     * Confirmação de recebimento
+     * @expectedException Exception
+     * @expectedExceptionMessage Data de Recebimento precisa ser informada e estar no pad
+     */
+    public function testRecebimentoConfirmarDataIncorreta(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, '12/12/12' );
+    
+    }
+
+    /**
+     * Confirmação de recebimento
+     * @expectedException Exception
+     * @expectedExceptionMessage Data de Recebimento precisa ser informada e estar no pad
+     */
+    public function testRecebimentoConfirmarDataIncorreta2(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, '12/12' );
+    
+    }
+
+    /**
+     * Confirmação de recebimento
+     */
+    public function testRecebimentoConfirmarDataCorreta(){
+    
+        $result = json_decode( FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12' ), true);
+        
+        $this->assertContains( "api/venda/47165/recebimento-confirmar" , $result['request_uri'] );
+        
+        $this->assertEquals( "POST" , $result['method'] );
+        $this->assertEquals( '2012-12-12' , $result['post']['data_recebimento'] );
+        
+    }
+
+    /**
+     * Confirmação de recebimento
+     */
+    public function testRecebimentoConfirmarDataCorretaComValor(){
+    
+        $result = json_decode( FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12', 1000.22 ), true);
+        
+        $this->assertContains( "api/venda/47165/recebimento-confirmar" , $result['request_uri'] );
+        
+        $this->assertEquals( "POST" , $result['method'] );
+        $this->assertEquals( '2012-12-12' , $result['post']['data_recebimento'] );
+        $this->assertEquals( 1000.22 , $result['post']['valor_recebido'] );
+        
+    }
+
+    /**
+     * Confirmação de recebimento com valor incorreto
+     * @expectedException Exception
+     * @expectedExceptionMessage Caso definido, o Valor Recebido precisa ser um inteir
+     */
+    public function testRecebimentoConfirmarDataCorretaComValorIncorreto(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12', 'abc');
+        
+    }
+    
+    /**
+     * Confirmação de recebimento com valor incorreto
+     * @expectedException Exception
+     * @expectedExceptionMessage Caso definido, o Valor Recebido precisa ser um inteir
+     */
+    public function testRecebimentoConfirmarDataCorretaComValorIncorreto2(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12', '-200');
+        
+    }
+    
+    /**
+     * Confirmação de recebimento com valor incorreto
+     * @expectedException Exception
+     * @expectedExceptionMessage Caso definido, o Valor Recebido precisa ser um inteir
+     */
+    public function testRecebimentoConfirmarDataCorretaComValorIncorreto3(){
+    
+        FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12', -200);
+        
+    }
+    
+    
+    /**
+     * Confirmação de recebimento com valor correto
+     */
+    public function testRecebimentoConfirmarDataCorretaComValorCorreto(){
+    
+        $result = json_decode( FaturaSimples_Venda::recebimentoConfirmar( 47165, '2012-12-12', 123.45), true);
+
+        $this->assertContains( "api/venda/47165/recebimento-confirmar" , $result['request_uri'] );
+        
+        $this->assertEquals( "POST" , $result['method'] );
+        $this->assertEquals( '2012-12-12' , $result['post']['data_recebimento'] );
+        $this->assertEquals( 123.45 , $result['post']['valor_recebido'] );
+        
+    }
     
 }
 

@@ -139,6 +139,34 @@ class FaturaSimples_Venda extends FaturaSimples {
 	    return self::_request( "api/".static::_model()."/{$id}/nfse-cancelar", "POST", array('cancelamento_codigo' => $codigo) );
 	}
 	
+	/**
+	 * Faz a confirmação de recebimento de uma venda
+	 * @param int $id Id da venda no sistema
+	 * @param String $dataRecebimento Data de recebimento no formato ISO8601, ex: 2015-12-15
+	 * @param float $valorRecebido Valor recebido, opcional. Será considerado o Valor da Venda caso não informado
+	 * @return String JSON
+	 */
+	public static function recebimentoConfirmar( $id, $dataRecebimento, $valorRecebido = null ){
+	    
+	    $dados = array();
+	    
+	    if( !preg_match("/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/", $dataRecebimento) ){
+	        throw new Exception(__CLASS__.": Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD");
+	    }
+	    
+	    $dados['data_recebimento'] = $dataRecebimento;
+	    
+	    if( $valorRecebido !== null ){
+	        if( floatval($valorRecebido) > 0 ){
+	            $dados['valor_recebido'] = $valorRecebido;
+	        } else {
+	            throw new Exception(__CLASS__.": Caso definido, o Valor Recebido precisa ser um inteiro ou float");
+	        }
+	    }
+	    
+	    return self::_request( "api/".static::_model()."/{$id}/recebimento-confirmar", "POST", $dados );
+	}
+	
 }
 
 
