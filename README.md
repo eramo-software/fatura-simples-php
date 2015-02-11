@@ -50,6 +50,7 @@ Um caso de uso extremamente simples:
 
     FaturaSimples::configure("https://suaempresa.faturasimples.com.br", "SUA_CHAVE_API");
     $dados = array(
+        'data' => '2015-02-11',
         'cliente' => 'NOME DO CLIENTE',
         'servico' => 'Consultoria em TI',
         'valor_venda' => 100.22,
@@ -63,7 +64,7 @@ Para registrar uma venda com emissão de NFS-e:
 
     FaturaSimples::configure("https://suaempresa.faturasimples.com.br", "SUA_CHAVE_API");
     $dados = array(
-        "data" => "14/09/2014",
+        "data" => "2015-02-11",
         "cliente" => "ERAMO SOFTWARE",
         "cliente_cnpj" => "17737572000150",
         "servico" => "Consultoria em TI",
