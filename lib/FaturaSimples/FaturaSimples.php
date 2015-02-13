@@ -3,6 +3,20 @@
 abstract class FaturaSimples {
 
     /**
+     * Constantes de operadores de filtros
+     * @var string
+     */
+    const FILTRO_EQ = 'eq';
+    const FILTRO_NEQ = 'neq';
+    const FILTRO_GT = 'gt';
+    const FILTRO_LT = 'lt';
+    const FILTRO_BETWEEN = 'between';
+    const FILTRO_ISNULL = 'isnull';
+    const FILTRO_ISNOTNULL = 'isnotnull';
+    const FILTRO_CONTAINS = 'contains';
+    const FILTRO_NOTCONTAINS = 'notcontains';
+
+    /**
      * Chave de API
      * @var String
      */
@@ -209,6 +223,9 @@ abstract class FaturaSimples {
 	    }
 	    
 	    if($filtros !== null){
+	    	if(is_array($filtros)){
+	    		$filtros = json_encode($filtros);
+	    	}
 	        $params[] = "filtros=".urlencode($filtros);
 	    }
 	    
