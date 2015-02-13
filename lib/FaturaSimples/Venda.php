@@ -61,7 +61,31 @@ class FaturaSimples_Venda extends FaturaSimples {
      * @var int
      */
     const PARCELA_STATUS_VENCIDO = 5;
-    
+
+    /** 
+     * NFS-e com status Emitida
+     * @var int
+     */
+    const NFSE_STATUS_EMITIDA = 1;
+
+    /** 
+     * NFS-e com status Cancelada
+     * @var int
+     */
+    const NFSE_STATUS_CANCELADA = 2;
+
+    /** 
+     * NFS-e com status Pendente
+     * @var int
+     */
+    const NFSE_STATUS_PENDENTE = 3;
+
+    /** 
+     * NFS-e com status Erro
+     * @var int
+     */
+    const NFSE_STATUS_ERRO = 4;
+
     /**
      * Frequência de agendamento
      * @var int
