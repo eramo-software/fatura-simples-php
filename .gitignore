@@ -9,3 +9,6 @@ composer.lock
 .buildpath
 .project
 /.settings/
+
+# PHP CS
+.php_cs.cache

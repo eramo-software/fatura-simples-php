@@ -1,13 +1,13 @@
 <?php
 
 // Valida funções necessárias do PHP
-foreach( array('curl_init' => "CURL", 'json_decode' => "JSON") as $function => $extension ) {
-	if (!function_exists($function)) {
-	  throw new Exception("A API do Fatura Sinples precisa da extensão do PHP {$extension}.");
-	}
+foreach (array('curl_init' => "CURL", 'json_decode' => "JSON") as $function => $extension) {
+    if (!function_exists($function)) {
+        throw new Exception("A API do Fatura Sinples precisa da extensão do PHP {$extension}.");
+    }
 }
 
-require(dirname(__FILE__) . '/FaturaSimples/FaturaSimples.php');
-require(dirname(__FILE__) . '/FaturaSimples/Servico.php');
-require(dirname(__FILE__) . '/FaturaSimples/Cliente.php');
-require(dirname(__FILE__) . '/FaturaSimples/Venda.php');
+require dirname(__FILE__).'/FaturaSimples/FaturaSimples.php';
+require dirname(__FILE__).'/FaturaSimples/Servico.php';
+require dirname(__FILE__).'/FaturaSimples/Cliente.php';
+require dirname(__FILE__).'/FaturaSimples/Venda.php';
