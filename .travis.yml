@@ -10,14 +10,14 @@ matrix:
         - php: hhvm
         - php: hhvm-nightly
     allow_failures:
+        - php: 5.2
         - php: hhvm
         - php: hhvm-nightly
     fast_finish: true
 
 before_script:
-   - if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then composer install; fi;
+   - composer install
 
 script:
-  - if [ "$TRAVIS_PHP_VERSION" = "5.2" ]; then phpunit test/FaturaSimples/; fi;
-  - if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then php ./vendor/bin/phpunit; fi;
-  - if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then php -d zend.enable_gc=0 ./vendor/bin/php-cs-fixer fix -v --dry-run; fi;
+  - php ./vendor/bin/phpunit
+  - php -d zend.enable_gc=0 ./vendor/bin/php-cs-fixer fix -v --dry-run
