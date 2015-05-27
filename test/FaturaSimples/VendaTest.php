@@ -101,6 +101,7 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
         $this->assertContains("api/venda/47165/nfse-cancelar", $result['request_uri']);
         $this->assertEquals("POST", $result['method']);
         $this->assertEquals(1, $result['post']['cancelamento_codigo']);
+        $this->assertEquals('Erro de preenchimento dos dados da NFe.', $result['post']['cancelamento_motivo']);
     }
 
     /**
@@ -108,11 +109,26 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function testNfseCancelar2()
     {
-        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS), true);
+
+        $motivo = 'motivo do cancelamento preicsa ser informado quando o tipo de cancelamento é outros';
+
+        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, $motivo), true);
 
         $this->assertContains("api/venda/47165/nfse-cancelar", $result['request_uri']);
         $this->assertEquals("POST", $result['method']);
         $this->assertEquals(4, $result['post']['cancelamento_codigo']);
+        $this->assertEquals($motivo, $result['post']['cancelamento_motivo']);
+    }
+
+    /**
+     * Cancelamento de NFS-e.
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Motivo do cancelamento deve conter
+     */
+    public function testNfseCancelar3()
+    {
+        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, 'muito pequeno'), true);
     }
 
     /**
