@@ -18,7 +18,7 @@ class FaturaSimplesTest extends PHPUnit_Framework_TestCase
      */
     public function testChaveApiInvalida()
     {
-        FaturaSimples::configure("dominio", "");
+        FaturaSimples::configure('dominio', '');
     }
 
     /**
@@ -27,7 +27,7 @@ class FaturaSimplesTest extends PHPUnit_Framework_TestCase
      */
     public function testChaveApiInvalida2()
     {
-        FaturaSimples::configure("dominio", "abddee");
+        FaturaSimples::configure('dominio', 'abddee');
     }
 
     /**
@@ -36,7 +36,7 @@ class FaturaSimplesTest extends PHPUnit_Framework_TestCase
      */
     public function testDominioInvalido()
     {
-        FaturaSimples::configure("", "2y6v8qnX3SUHZb0sanKWrQUnTAY");
+        FaturaSimples::configure('', '2y6v8qnX3SUHZb0sanKWrQUnTAY');
     }
 
     /**
@@ -44,6 +44,6 @@ class FaturaSimplesTest extends PHPUnit_Framework_TestCase
      */
     public function testValido()
     {
-        $this->assertTrue(FaturaSimples::configure("dominio", "2y6v8qnX3SUHZb0sanKWrQUnTAY"));
+        $this->assertTrue(FaturaSimples::configure('dominio', '2y6v8qnX3SUHZb0sanKWrQUnTAY'));
     }
 }

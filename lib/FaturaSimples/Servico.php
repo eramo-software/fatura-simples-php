@@ -9,6 +9,6 @@ class FaturaSimples_Servico extends FaturaSimples
      */
     protected static function _model()
     {
-        return "servico";
+        return 'servico';
     }
 }

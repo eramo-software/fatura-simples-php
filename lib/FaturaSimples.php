@@ -1,7 +1,7 @@
 <?php
 
 // Valida funções necessárias do PHP
-foreach (array('curl_init' => "CURL", 'json_decode' => "JSON") as $function => $extension) {
+foreach (array('curl_init' => 'CURL', 'json_decode' => 'JSON') as $function => $extension) {
     if (!function_exists($function)) {
         throw new Exception("A API do Fatura Sinples precisa da extensão do PHP {$extension}.");
     }

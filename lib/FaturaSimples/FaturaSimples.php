@@ -22,14 +22,14 @@ abstract class FaturaSimples
      *
      * @var String
      */
-    protected static $apiKey = "";
+    protected static $apiKey = '';
 
     /**
      * Base do endpoint da api de uma instalação do Fatura Simples.
      *
      * @var String
      */
-    protected static $endpoint = "";
+    protected static $endpoint = '';
 
     /**
      * Versão da API sendo utilizada.
@@ -43,9 +43,9 @@ abstract class FaturaSimples
      */
     public static function reset()
     {
-        self::$apiKey = "";
-        self::$endpoint = "";
-        self::$apiVersion = "";
+        self::$apiKey = '';
+        self::$endpoint = '';
+        self::$apiVersion = '';
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class FaturaSimples
 
         if (strlen($endpoint) > 0) {
             // Aceita que o endpoint seja passado completo como uma URL
-            if (stripos($endpoint, "http") !== false) {
+            if (stripos($endpoint, 'http') !== false) {
                 self::$endpoint = $endpoint;
             }
             // Caso padrão onde se passa somente o domínio
@@ -100,7 +100,7 @@ abstract class FaturaSimples
 
         $curl = curl_init();
 
-        $headers = array('Authorization: Basic '.base64_encode(self::$apiKey.":"));
+        $headers = array('Authorization: Basic '.base64_encode(self::$apiKey.':'));
 
         if (self::$apiVersion !== null) {
             $headers[] = 'FaturaSimples-Versao: '.self::$apiVersion;
@@ -147,9 +147,9 @@ abstract class FaturaSimples
                 CURLOPT_CUSTOMREQUEST => $method,
         );
 
-        if ($method === "POST") {
+        if ($method === 'POST') {
             if (!is_array($params) || count($params) === 0) {
-                throw new Exception(__CLASS__.": não é possível realizar uma requisição sem parâmetros.");
+                throw new Exception(__CLASS__.': não é possível realizar uma requisição sem parâmetros.');
             }
 
             $curlOpts[CURLOPT_POST] = 1;
@@ -160,7 +160,7 @@ abstract class FaturaSimples
             $curlOpts[CURLOPT_POSTFIELDS] = $params;
         }
 
-        $ret = self::_curl(self::$endpoint."/".$path, $curlOpts);
+        $ret = self::_curl(self::$endpoint.'/'.$path, $curlOpts);
 
         return $ret;
     }
@@ -172,7 +172,7 @@ abstract class FaturaSimples
      */
     protected static function _model()
     {
-        throw new Exception("A classe FaturaSimples nao pode ser usada diretamente. Utilize uma das subclasses, FaturaSimples_Cliente::, por exemplo.");
+        throw new Exception('A classe FaturaSimples nao pode ser usada diretamente. Utilize uma das subclasses, FaturaSimples_Cliente::, por exemplo.');
     }
 
     /**
@@ -184,7 +184,7 @@ abstract class FaturaSimples
      */
     public static function criar($params)
     {
-        return self::_request("api/".static::_model(), "POST", $params);
+        return self::_request('api/'.static::_model(), 'POST', $params);
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class FaturaSimples
      */
     public static function atualizar($id, $params)
     {
-        return self::_request("api/".static::_model()."/{$id}", "POST", $params);
+        return self::_request('api/'.static::_model()."/{$id}", 'POST', $params);
     }
 
     /**
@@ -209,7 +209,7 @@ abstract class FaturaSimples
      */
     public static function selecionar($id)
     {
-        return self::_request("api/".static::_model()."/{$id}", "GET");
+        return self::_request('api/'.static::_model()."/{$id}", 'GET');
     }
 
     /**
@@ -221,7 +221,7 @@ abstract class FaturaSimples
      */
     public static function deletar($id)
     {
-        return self::_request("api/".static::_model()."/{$id}", "DELETE");
+        return self::_request('api/'.static::_model()."/{$id}", 'DELETE');
     }
 
     /**
@@ -235,25 +235,25 @@ abstract class FaturaSimples
     public static function listar($inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null, $filtros = null)
     {
         $params = array(
-            "inicio=".$inicio,
-            "limite=".$limite,
+            'inicio='.$inicio,
+            'limite='.$limite,
         );
 
         if ($ordenarColuna !== null) {
-            $params[] = "ordenarColuna=".$ordenarColuna;
+            $params[] = 'ordenarColuna='.$ordenarColuna;
         }
 
         if ($ordenarDirecao !== null) {
-            $params[] = "ordenarDirecao=".$ordenarDirecao;
+            $params[] = 'ordenarDirecao='.$ordenarDirecao;
         }
 
         if ($filtros !== null) {
             if (is_array($filtros)) {
                 $filtros = json_encode($filtros);
             }
-            $params[] = "filtros=".urlencode($filtros);
+            $params[] = 'filtros='.urlencode($filtros);
         }
 
-        return self::_request("api/".static::_model()."?".implode("&", $params), "GET");
+        return self::_request('api/'.static::_model().'?'.implode('&', $params), 'GET');
     }
 }

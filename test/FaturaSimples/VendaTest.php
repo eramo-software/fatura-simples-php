@@ -9,7 +9,7 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        FaturaSimples::configure("https://docs.faturasimples.com.br/api-tests", "2y6v8qnX3SUHZb0sanKWrQUnTAY");
+        FaturaSimples::configure('https://docs.faturasimples.com.br/api-tests', '2y6v8qnX3SUHZb0sanKWrQUnTAY');
     }
 
     /**
@@ -18,27 +18,27 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     public function testCriar()
     {
         $params = array(
-            "data" => "12/09/2014",
-            "cliente" => "ERAMO SOFTWARE",
-            "cliente_cnpj" => "17737572000150",
-            "servico" => "Desenvolvimento de Sistemas",
-            "discriminacao" => "Desenvolvimento\n\nPeríodo de 01/09/2014 a 30/09/2015",
-            "valor_venda" => 123.22,
-            "emissao_nfse" => FaturaSimples_Venda::EMISSAO_NFSE_EMITIR_AGORA,
-            "meio_pagamento" => "Espécie",
-            "nfse_municipio_emissao" => 2611606,
-            "nfse_item_servico" => 103,
-            "nfse_cnae" => 6311900,
-            "nfse_inscricao_municipal" => 123456,
-            "nfse_optante_simples_nacional" => FaturaSimples_Venda::SIM,
-            "nfse_incentivador_cultural" => FaturaSimples_Venda::NAO,
+            'data' => '12/09/2014',
+            'cliente' => 'ERAMO SOFTWARE',
+            'cliente_cnpj' => '17737572000150',
+            'servico' => 'Desenvolvimento de Sistemas',
+            'discriminacao' => "Desenvolvimento\n\nPeríodo de 01/09/2014 a 30/09/2015",
+            'valor_venda' => 123.22,
+            'emissao_nfse' => FaturaSimples_Venda::EMISSAO_NFSE_EMITIR_AGORA,
+            'meio_pagamento' => 'Espécie',
+            'nfse_municipio_emissao' => 2611606,
+            'nfse_item_servico' => 103,
+            'nfse_cnae' => 6311900,
+            'nfse_inscricao_municipal' => 123456,
+            'nfse_optante_simples_nacional' => FaturaSimples_Venda::SIM,
+            'nfse_incentivador_cultural' => FaturaSimples_Venda::NAO,
         );
 
         $result = json_decode(FaturaSimples_Venda::criar($params), true);
 
-        $this->assertContains("api/venda", $result['request_uri']);
-        $this->assertEquals("POST", $result['method']);
-        $this->assertEquals("2y6v8qnX3SUHZb0sanKWrQUnTAY", $result['api_key']);
+        $this->assertContains('api/venda', $result['request_uri']);
+        $this->assertEquals('POST', $result['method']);
+        $this->assertEquals('2y6v8qnX3SUHZb0sanKWrQUnTAY', $result['api_key']);
 
         foreach ($result['post'] as $field => $value) {
             $this->assertEquals($value, $params[$field]);
@@ -52,8 +52,8 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::selecionar(47165), true);
 
-        $this->assertContains("api/venda/47165", $result['request_uri']);
-        $this->assertEquals("GET", $result['method']);
+        $this->assertContains('api/venda/47165', $result['request_uri']);
+        $this->assertEquals('GET', $result['method']);
     }
 
     /**
@@ -63,8 +63,8 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::deletar(47165), true);
 
-        $this->assertContains("api/venda/47165", $result['request_uri']);
-        $this->assertEquals("DELETE", $result['method']);
+        $this->assertContains('api/venda/47165', $result['request_uri']);
+        $this->assertEquals('DELETE', $result['method']);
     }
 
     /**
@@ -73,18 +73,18 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $params = array(
-            "data" => "12/09/2014",
-            "cliente" => "ERAMO SOFTWARE",
-            "cliente_cnpj" => "17737572000150",
-            "servico" => "Desenvolvimento de Sistemas",
-            "discriminacao" => "Desenvolvimento\n\nPeríodo de 01/09/2014 a 30/09/2015",
-            "valor_venda" => 123.22,
+            'data' => '12/09/2014',
+            'cliente' => 'ERAMO SOFTWARE',
+            'cliente_cnpj' => '17737572000150',
+            'servico' => 'Desenvolvimento de Sistemas',
+            'discriminacao' => "Desenvolvimento\n\nPeríodo de 01/09/2014 a 30/09/2015",
+            'valor_venda' => 123.22,
         );
 
         $result = json_decode(FaturaSimples_Venda::atualizar(47165, $params), true);
 
-        $this->assertContains("api/venda/47165", $result['request_uri']);
-        $this->assertEquals("POST", $result['method']);
+        $this->assertContains('api/venda/47165', $result['request_uri']);
+        $this->assertEquals('POST', $result['method']);
 
         foreach ($result['post'] as $field => $value) {
             $this->assertEquals($value, $params[$field]);
@@ -98,8 +98,8 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_ERRO_EMISSAO), true);
 
-        $this->assertContains("api/venda/47165/nfse-cancelar", $result['request_uri']);
-        $this->assertEquals("POST", $result['method']);
+        $this->assertContains('api/venda/47165/nfse-cancelar', $result['request_uri']);
+        $this->assertEquals('POST', $result['method']);
         $this->assertEquals(1, $result['post']['cancelamento_codigo']);
         $this->assertEquals('Erro de preenchimento dos dados da NFe.', $result['post']['cancelamento_motivo']);
     }
@@ -113,8 +113,8 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
 
         $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, $motivo), true);
 
-        $this->assertContains("api/venda/47165/nfse-cancelar", $result['request_uri']);
-        $this->assertEquals("POST", $result['method']);
+        $this->assertContains('api/venda/47165/nfse-cancelar', $result['request_uri']);
+        $this->assertEquals('POST', $result['method']);
         $this->assertEquals(4, $result['post']['cancelamento_codigo']);
         $this->assertEquals($motivo, $result['post']['cancelamento_motivo']);
     }
@@ -159,10 +159,10 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::listar(0, 44), true);
 
-        $this->assertContains("api/venda", $result['request_uri']);
-        $this->assertContains("inicio=0", $result['request_uri']);
-        $this->assertContains("limite=44", $result['request_uri']);
-        $this->assertEquals("GET", $result['method']);
+        $this->assertContains('api/venda', $result['request_uri']);
+        $this->assertContains('inicio=0', $result['request_uri']);
+        $this->assertContains('limite=44', $result['request_uri']);
+        $this->assertEquals('GET', $result['method']);
         $this->assertEquals(0, $result['get']['inicio']);
         $this->assertEquals(44, $result['get']['limite']);
     }
@@ -207,9 +207,9 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::recebimentoConfirmar(47165, '2012-12-12'), true);
 
-        $this->assertContains("api/venda/47165/recebimento-confirmar", $result['request_uri']);
+        $this->assertContains('api/venda/47165/recebimento-confirmar', $result['request_uri']);
 
-        $this->assertEquals("POST", $result['method']);
+        $this->assertEquals('POST', $result['method']);
         $this->assertEquals('2012-12-12', $result['post']['data_recebimento']);
     }
 
@@ -220,9 +220,9 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::recebimentoConfirmar(47165, '2012-12-12', 1000.22), true);
 
-        $this->assertContains("api/venda/47165/recebimento-confirmar", $result['request_uri']);
+        $this->assertContains('api/venda/47165/recebimento-confirmar', $result['request_uri']);
 
-        $this->assertEquals("POST", $result['method']);
+        $this->assertEquals('POST', $result['method']);
         $this->assertEquals('2012-12-12', $result['post']['data_recebimento']);
         $this->assertEquals(1000.22, $result['post']['valor_recebido']);
     }
@@ -267,9 +267,9 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $result = json_decode(FaturaSimples_Venda::recebimentoConfirmar(47165, '2012-12-12', 123.45), true);
 
-        $this->assertContains("api/venda/47165/recebimento-confirmar", $result['request_uri']);
+        $this->assertContains('api/venda/47165/recebimento-confirmar', $result['request_uri']);
 
-        $this->assertEquals("POST", $result['method']);
+        $this->assertEquals('POST', $result['method']);
         $this->assertEquals('2012-12-12', $result['post']['data_recebimento']);
         $this->assertEquals(123.45, $result['post']['valor_recebido']);
     }

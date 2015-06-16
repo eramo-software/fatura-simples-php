@@ -182,7 +182,7 @@ class FaturaSimples_Venda extends FaturaSimples
      */
     protected static function _model()
     {
-        return "venda";
+        return 'venda';
     }
 
     /**
@@ -197,7 +197,7 @@ class FaturaSimples_Venda extends FaturaSimples
     public static function nfseCancelar($id, $codigo, $motivo = null)
     {
         if (!in_array($codigo, array(1, 2, 3, 4))) {
-            throw new Exception(__CLASS__.": Código do Cancelamento deve estar entre [1,2,3,4].");
+            throw new Exception(__CLASS__.': Código do Cancelamento deve estar entre [1,2,3,4].');
         }
 
         if ($motivo === null) {
@@ -205,10 +205,10 @@ class FaturaSimples_Venda extends FaturaSimples
         }
 
         if (strlen($motivo) < 15) {
-            throw new Exception(__CLASS__.": Motivo do cancelamento deve conter no mínimo 15 caracteres.");
+            throw new Exception(__CLASS__.': Motivo do cancelamento deve conter no mínimo 15 caracteres.');
         }
 
-        return self::_request("api/".static::_model()."/{$id}/nfse-cancelar", "POST", array('cancelamento_codigo' => $codigo, 'cancelamento_motivo' => $motivo));
+        return self::_request('api/'.static::_model()."/{$id}/nfse-cancelar", 'POST', array('cancelamento_codigo' => $codigo, 'cancelamento_motivo' => $motivo));
     }
 
     /**
@@ -225,7 +225,7 @@ class FaturaSimples_Venda extends FaturaSimples
         $dados = array();
 
         if (!preg_match("/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/", $dataRecebimento)) {
-            throw new Exception(__CLASS__.": Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD");
+            throw new Exception(__CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD');
         }
 
         $dados['data_recebimento'] = $dataRecebimento;
@@ -234,10 +234,10 @@ class FaturaSimples_Venda extends FaturaSimples
             if (floatval($valorRecebido) > 0) {
                 $dados['valor_recebido'] = $valorRecebido;
             } else {
-                throw new Exception(__CLASS__.": Caso definido, o Valor Recebido precisa ser um inteiro ou float");
+                throw new Exception(__CLASS__.': Caso definido, o Valor Recebido precisa ser um inteiro ou float');
             }
         }
 
-        return self::_request("api/".static::_model()."/{$id}/recebimento-confirmar", "POST", $dados);
+        return self::_request('api/'.static::_model()."/{$id}/recebimento-confirmar", 'POST', $dados);
     }
 }

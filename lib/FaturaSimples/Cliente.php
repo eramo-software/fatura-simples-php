@@ -9,6 +9,6 @@ class FaturaSimples_Cliente extends FaturaSimples
      */
     protected static function _model()
     {
-        return "cliente";
+        return 'cliente';
     }
 }
