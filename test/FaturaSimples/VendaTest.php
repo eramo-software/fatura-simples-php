@@ -109,7 +109,6 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function testNfseCancelar2()
     {
-
         $motivo = 'motivo do cancelamento preicsa ser informado quando o tipo de cancelamento é outros';
 
         $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, $motivo), true);

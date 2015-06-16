@@ -162,16 +162,17 @@ class FaturaSimples_Venda extends FaturaSimples
      * @var int
      */
     const NFSE_CANCELAR_OUTROS = 4;
-    
+
     /**
-     * Lista dos códigos de cancelamento permitidos
+     * Lista dos códigos de cancelamento permitidos.
+     *
      * @var String
      */
     protected static $_nfseCodigosCancelamento = array(
             self::NFSE_CANCELAR_ERRO_EMISSAO => 'Erro de preenchimento dos dados da NFe.',
             self::NFSE_CANCELAR_SERVICO_NAO_PRESTADO => 'Serviço não prestado. Nota emitida para tomador incorreto.',
             self::NFSE_CANCELAR_DUPLICIDADE => 'Nota emitida em duplicidade.',
-            self::NFSE_CANCELAR_OUTROS => '-a descrever-'
+            self::NFSE_CANCELAR_OUTROS => '-a descrever-',
     );
 
     /**
@@ -199,12 +200,11 @@ class FaturaSimples_Venda extends FaturaSimples
             throw new Exception(__CLASS__.": Código do Cancelamento deve estar entre [1,2,3,4].");
         }
 
-        if( $motivo === null )
-        {
+        if ($motivo === null) {
             $motivo = self::$_nfseCodigosCancelamento[ $codigo ];
         }
 
-        if ( strlen($motivo) < 15 ) {
+        if (strlen($motivo) < 15) {
             throw new Exception(__CLASS__.": Motivo do cancelamento deve conter no mínimo 15 caracteres.");
         }
 
