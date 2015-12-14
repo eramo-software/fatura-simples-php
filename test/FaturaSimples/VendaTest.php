@@ -294,7 +294,7 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Atualização de boleto com data inválida
+     * Atualização de boleto com data inválida.
      *
      * @expectedException Exception
      * @expectedExceptionMessage Data de Recebimento precisa ser informada e estar no
@@ -303,9 +303,9 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         FaturaSimples_Venda::boletoAtualizar(47165, 1, '20-12-12', 123.45);
     }
-    
+
     /**
-     * Atualização de boleto com valor inválido
+     * Atualização de boleto com valor inválido.
      *
      * @expectedException Exception
      * @expectedExceptionMessage O Valor precisa ser um inteiro ou float

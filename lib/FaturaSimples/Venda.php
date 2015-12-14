@@ -244,13 +244,13 @@ class FaturaSimples_Venda extends FaturaSimples
     /**
      * Faz a confirmação de recebimento de uma venda.
      *
-     * @param int    $id              Id da venda no sistema
-     * @param int $parcela Sequencial da parcela na venda: ex: 1, 2, 3
-     * @param String $dataVencimento Nova data de vencimento no formato ISO8601, ex: 2015-12-15
-     * @param float  $valor Novo valor do boleto
-     * @param float  $multa Percentual de multa aplicado
-     * @param float  $multaTotal Valor total da multa aplicada na atualização
-     * @param float  $jurosMensal Percentual de juros mensal aplicado
+     * @param int    $id               Id da venda no sistema
+     * @param int    $parcela          Sequencial da parcela na venda: ex: 1, 2, 3
+     * @param String $dataVencimento   Nova data de vencimento no formato ISO8601, ex: 2015-12-15
+     * @param float  $valor            Novo valor do boleto
+     * @param float  $multa            Percentual de multa aplicado
+     * @param float  $multaTotal       Valor total da multa aplicada na atualização
+     * @param float  $jurosMensal      Percentual de juros mensal aplicado
      * @param float  $jurosMensalTotal Valor total do juros aplicado na atualização
      *
      * @return String JSON
