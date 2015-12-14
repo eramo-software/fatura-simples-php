@@ -273,4 +273,45 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2012-12-12', $result['post']['data_recebimento']);
         $this->assertEquals(123.45, $result['post']['valor_recebido']);
     }
+
+    /**
+     * Confirmação de recebimento com valor correto.
+     */
+    public function testBoletoAtualizar()
+    {
+        $result = json_decode(FaturaSimples_Venda::boletoAtualizar(1, 3, '2015-12-30', 123.45, 1.23, 3.21, 2.11, 2.3), true);
+
+        $this->assertContains('api/venda/1/boleto-atualizar', $result['request_uri']);
+
+        $this->assertEquals('POST', $result['method']);
+        $this->assertEquals('2015-12-30', $result['post']['data_vencimento_novo']);
+        $this->assertEquals(123.45, $result['post']['valor_novo']);
+        $this->assertEquals(1.23, $result['post']['multa']);
+        $this->assertEquals(3.21, $result['post']['multa_total']);
+        $this->assertEquals(2.11, $result['post']['juros_mensal']);
+        $this->assertEquals(2.3, $result['post']['juros_mensal_total']);
+        $this->assertEquals(3, $result['post']['parcela']);
+    }
+
+    /**
+     * Atualização de boleto com data inválida
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Data de Recebimento precisa ser informada e estar no
+     */
+    public function testBoletoAtualizarDataInvalida()
+    {
+        FaturaSimples_Venda::boletoAtualizar(47165, 1, '20-12-12', 123.45);
+    }
+    
+    /**
+     * Atualização de boleto com valor inválido
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage O Valor precisa ser um inteiro ou float
+     */
+    public function testBoletoAtualizarValorInvalido()
+    {
+        FaturaSimples_Venda::boletoAtualizar(47165, 1, '2015-12-12', -1000);
+    }
 }

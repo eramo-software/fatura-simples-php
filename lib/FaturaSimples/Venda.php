@@ -240,4 +240,67 @@ class FaturaSimples_Venda extends FaturaSimples
 
         return self::_request('api/'.static::_model()."/{$id}/recebimento-confirmar", 'POST', $dados);
     }
+
+    /**
+     * Faz a confirmação de recebimento de uma venda.
+     *
+     * @param int    $id              Id da venda no sistema
+     * @param int $parcela Sequencial da parcela na venda: ex: 1, 2, 3
+     * @param String $dataVencimento Nova data de vencimento no formato ISO8601, ex: 2015-12-15
+     * @param float  $valor Novo valor do boleto
+     * @param float  $multa Percentual de multa aplicado
+     * @param float  $multaTotal Valor total da multa aplicada na atualização
+     * @param float  $jurosMensal Percentual de juros mensal aplicado
+     * @param float  $jurosMensalTotal Valor total do juros aplicado na atualização
+     *
+     * @return String JSON
+     */
+    public static function boletoAtualizar($id, $parcela, $dataVencimento, $valor, $multa = null, $multaTotal = null, $jurosMensal = null, $jurosMensalTotal = null)
+    {
+        $dados = array();
+
+        if (!preg_match("/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/", $dataVencimento)) {
+            throw new Exception(__CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD');
+        }
+
+        $dados['data_vencimento_novo'] = $dataVencimento;
+
+        if (floatval($parcela) > 0) {
+            $dados['parcela'] = $parcela;
+        } else {
+            throw new Exception(__CLASS__.': A parcela precisa ser um inteiro maior que zero');
+        }
+
+        if (floatval($valor) > 0) {
+            $dados['valor_novo'] = $valor;
+        } else {
+            throw new Exception(__CLASS__.': O Valor precisa ser um inteiro ou float');
+        }
+
+        if (floatval($multa) > 0) {
+            $dados['multa'] = $multa;
+        } else {
+            throw new Exception(__CLASS__.': A Multa precisa ser um inteiro ou float');
+        }
+
+        if (floatval($multaTotal) > 0) {
+            $dados['multa_total'] = $multaTotal;
+        } else {
+            throw new Exception(__CLASS__.': A Multa Total precisa ser um inteiro ou float');
+        }
+
+        if (floatval($jurosMensal) > 0) {
+            $dados['juros_mensal'] = $jurosMensal;
+        } else {
+            throw new Exception(__CLASS__.': O Juros Mensal precisa ser um inteiro ou float');
+        }
+
+        if (floatval($jurosMensalTotal) > 0) {
+            $dados['juros_mensal_total'] = $jurosMensalTotal;
+        } else {
+            throw new Exception(__CLASS__.': O Juros Mensal Total precisa ser um inteiro ou float');
+        }
+
+        return self::_request('api/'.static::_model()."/{$id}/boleto-atualizar", 'POST', $dados);
+    }
 }
