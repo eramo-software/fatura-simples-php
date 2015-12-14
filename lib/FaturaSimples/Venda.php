@@ -166,7 +166,7 @@ class FaturaSimples_Venda extends FaturaSimples
     /**
      * Lista dos códigos de cancelamento permitidos.
      *
-     * @var String
+     * @var string
      */
     protected static $_nfseCodigosCancelamento = array(
             self::NFSE_CANCELAR_ERRO_EMISSAO => 'Erro de preenchimento dos dados da NFe.',
@@ -192,7 +192,7 @@ class FaturaSimples_Venda extends FaturaSimples
      * @param int $codigo Uma das constantes NFSE_CANCELAR_*
      * @param int $motivo Descrição do motivo do cancelamento com no mínimo 15 caracteres
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function nfseCancelar($id, $codigo, $motivo = null)
     {
@@ -215,10 +215,10 @@ class FaturaSimples_Venda extends FaturaSimples
      * Faz a confirmação de recebimento de uma venda.
      *
      * @param int    $id              Id da venda no sistema
-     * @param String $dataRecebimento Data de recebimento no formato ISO8601, ex: 2015-12-15
+     * @param string $dataRecebimento Data de recebimento no formato ISO8601, ex: 2015-12-15
      * @param float  $valorRecebido   Valor recebido, opcional. Será considerado o Valor da Venda caso não informado
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function recebimentoConfirmar($id, $dataRecebimento, $valorRecebido = null)
     {
@@ -246,14 +246,14 @@ class FaturaSimples_Venda extends FaturaSimples
      *
      * @param int    $id               Id da venda no sistema
      * @param int    $parcela          Sequencial da parcela na venda: ex: 1, 2, 3
-     * @param String $dataVencimento   Nova data de vencimento no formato ISO8601, ex: 2015-12-15
+     * @param string $dataVencimento   Nova data de vencimento no formato ISO8601, ex: 2015-12-15
      * @param float  $valor            Novo valor do boleto
      * @param float  $multa            Percentual de multa aplicado
      * @param float  $multaTotal       Valor total da multa aplicada na atualização
      * @param float  $jurosMensal      Percentual de juros mensal aplicado
      * @param float  $jurosMensalTotal Valor total do juros aplicado na atualização
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function boletoAtualizar($id, $parcela, $dataVencimento, $valor, $multa = null, $multaTotal = null, $jurosMensal = null, $jurosMensalTotal = null)
     {

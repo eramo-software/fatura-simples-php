@@ -20,21 +20,21 @@ abstract class FaturaSimples
     /**
      * Chave de API.
      *
-     * @var String
+     * @var string
      */
     protected static $apiKey = '';
 
     /**
      * Base do endpoint da api de uma instalação do Fatura Simples.
      *
-     * @var String
+     * @var string
      */
     protected static $endpoint = '';
 
     /**
      * Versão da API sendo utilizada.
      *
-     * @var String
+     * @var string
      */
     protected static $apiVersion = null;
 
@@ -51,8 +51,8 @@ abstract class FaturaSimples
     /**
      * Configura o objeto com a chave de API e o endpoint da instalação.
      *
-     * @param String $endpoint Domínio da sua instalação
-     * @param String $apiKey   Chave de api gerada dentro do Fatura Simples
+     * @param string $endpoint Domínio da sua instalação
+     * @param string $apiKey   Chave de api gerada dentro do Fatura Simples
      */
     public static function configure($endpoint, $apiKey, $apiVersion = null)
     {
@@ -87,15 +87,15 @@ abstract class FaturaSimples
     /**
      * Executa uma requisição simples via curl.
      *
-     * @param String  $url
+     * @param string  $url
      * @param mixed[] $options
      *
-     * @return String Resposta da requisição
+     * @return string Resposta da requisição
      */
     protected static function _curl($url, $options = array())
     {
         if (!strlen(self::$apiKey)) {
-            throw new Exception(__CLASS__.": Utilize o método FaturaSimples::configure(\$endpoint, \$apiKey) antes de realizar chamadas.");
+            throw new Exception(__CLASS__.': Utilize o método FaturaSimples::configure($endpoint, $apiKey) antes de realizar chamadas.');
         }
 
         $curl = curl_init();
@@ -135,9 +135,9 @@ abstract class FaturaSimples
     /**
      * Realiza uma requisição à API usando cURL.
      *
-     * @param String   $path
-     * @param String   $method Método do HTTP a ser utilizado: GET, POST, DELETE
-     * @param String[] $params
+     * @param string   $path
+     * @param string   $method Método do HTTP a ser utilizado: GET, POST, DELETE
+     * @param string[] $params
      *
      * @throws Exception
      */
@@ -168,7 +168,7 @@ abstract class FaturaSimples
     /**
      * Método que deve ser implementado pelas classes dos models retornando a string para compor a URL.
      *
-     * @return String
+     * @return string
      */
     protected static function _model()
     {
@@ -180,7 +180,7 @@ abstract class FaturaSimples
      *
      * @param mixed[] $params
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function criar($params)
     {
@@ -193,7 +193,7 @@ abstract class FaturaSimples
      * @param int     $id
      * @param mixed[] $params
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function atualizar($id, $params)
     {
@@ -205,7 +205,7 @@ abstract class FaturaSimples
      *
      * @param int $id
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function selecionar($id)
     {
@@ -217,7 +217,7 @@ abstract class FaturaSimples
      *
      * @param int $id
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function deletar($id)
     {
@@ -230,7 +230,7 @@ abstract class FaturaSimples
      * @param int $inicio
      * @param int $limite
      *
-     * @return String JSON
+     * @return string JSON
      */
     public static function listar($inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null, $filtros = null)
     {
