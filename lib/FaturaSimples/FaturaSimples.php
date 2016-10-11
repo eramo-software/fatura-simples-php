@@ -157,6 +157,13 @@ abstract class FaturaSimples
 
         // Adiciona os parâmetros na requisição convertendo arrays para JSON quando necessário
         if (is_array($params) && count($params) > 0) {
+            // Caso o parâmetro tenha sido passado como array converte-o para json
+            foreach($params as $key => $param){
+                if( is_array($param) ){
+                    $params[$key] = json_encode($param);
+                }
+            }
+            // Define os parâmetros como postfields
             $curlOpts[CURLOPT_POSTFIELDS] = $params;
         }
 
