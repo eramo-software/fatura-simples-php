@@ -119,6 +119,13 @@ class FaturaSimples_Venda extends FaturaSimples
      *
      * @var int
      */
+    const AGENDAMENTO_FREQUENCIA_BIMESTRAL = 2;
+
+    /**
+     * Frequência de agendamento.
+     *
+     * @var int
+     */
     const AGENDAMENTO_FREQUENCIA_TRIMENSAL = 3;
 
     /**
