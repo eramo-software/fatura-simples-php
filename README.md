@@ -16,7 +16,7 @@ Você pode instalar a interface via [Composer](http://getcomposer.org/). Adicion
 
     {
       "require": {
-        "eramo-software/fatura-simples-php": "dev-master"
+        "eramo-software/fatura-simples-php": "v1.0.0"
       }
     }
     
@@ -98,7 +98,3 @@ Para executar os testes você precisa instalar o PHPUnit, usando composer execut
 Para executar os testes:
 
     php vendor/bin/phpunit test/FaturaSimples/
-
-
-
-
