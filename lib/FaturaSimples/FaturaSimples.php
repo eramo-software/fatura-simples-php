@@ -25,7 +25,7 @@ abstract class FaturaSimples
     protected static $apiKey = '';
 
     /**
-     * Base do endpoint da api de uma instalação do Fatura Simples.
+     * Base do endpoint da api de uma instalação da Fatura Simples.
      *
      * @var string
      */
@@ -52,7 +52,7 @@ abstract class FaturaSimples
      * Configura o objeto com a chave de API e o endpoint da instalação.
      *
      * @param string $endpoint Domínio da sua instalação
-     * @param string $apiKey   Chave de api gerada dentro do Fatura Simples
+     * @param string $apiKey   Chave de api gerada dentro da Fatura Simples
      */
     public static function configure($endpoint, $apiKey, $apiVersion = null)
     {
@@ -66,9 +66,8 @@ abstract class FaturaSimples
             // Aceita que o endpoint seja passado completo como uma URL
             if (stripos($endpoint, 'http') !== false) {
                 self::$endpoint = $endpoint;
-            }
-            // Caso padrão onde se passa somente o domínio
-            else {
+            } else {
+                // Caso padrão onde se passa somente o domínio
                 self::$endpoint = "https://{$endpoint}.faturasimples.com.br";
             }
         }
@@ -78,7 +77,9 @@ abstract class FaturaSimples
         }
 
         if (!strlen(self::$endpoint) || !preg_match("/^https?:\/\/([a-z0-9]{1,})/", self::$endpoint)) {
-            throw new Exception(__CLASS__.": informe uma domínio válido. Você deve informar somente o nome da empresa, ex: 'suaempresa'.");
+            throw new Exception(
+                __CLASS__.": informe um domínio válido. Você deve informar somente o subdomínio: 'suaempresa'."
+            );
         }
 
         return true;
@@ -95,7 +96,10 @@ abstract class FaturaSimples
     protected static function _curl($url, $options = array())
     {
         if (!strlen(self::$apiKey)) {
-            throw new Exception(__CLASS__.': Utilize o método FaturaSimples::configure($endpoint, $apiKey) antes de realizar chamadas.');
+            throw new Exception(
+                __CLASS__.': Utilize o método FaturaSimples::configure antes de realizar chamadas.
+            '
+            );
         }
 
         $curl = curl_init();
@@ -109,7 +113,6 @@ abstract class FaturaSimples
         $optionsDefault = array(
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $url,
-                CURLOPT_CAINFO => dirname(__FILE__).'/../data/ca-certificates.crt',
                 CURLOPT_SSL_VERIFYPEER => true,
                 CURLOPT_SSL_VERIFYHOST => 2,
                 CURLOPT_HTTPHEADER => $headers,
@@ -179,7 +182,10 @@ abstract class FaturaSimples
      */
     protected static function _model()
     {
-        throw new Exception('A classe FaturaSimples nao pode ser usada diretamente. Utilize uma das subclasses, FaturaSimples_Cliente::, por exemplo.');
+        throw new Exception(
+            'A classe FaturaSimples nao pode ser usada diretamente.'
+            .'Utilize uma das subclasses, FaturaSimples_Cliente::, por exemplo.'
+        );
     }
 
     /**
@@ -239,8 +245,13 @@ abstract class FaturaSimples
      *
      * @return string JSON
      */
-    public static function listar($inicio = 0, $limite = 10, $ordenarColuna = null, $ordenarDirecao = null, $filtros = null)
-    {
+    public static function listar(
+        $inicio = 0,
+        $limite = 10,
+        $ordenarColuna = null,
+        $ordenarDirecao = null,
+        $filtros = null
+    ) {
         $params = array(
             'inicio='.$inicio,
             'limite='.$limite,

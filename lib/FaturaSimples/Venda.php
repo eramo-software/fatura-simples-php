@@ -215,7 +215,11 @@ class FaturaSimples_Venda extends FaturaSimples
             throw new Exception(__CLASS__.': Motivo do cancelamento deve conter no mínimo 15 caracteres.');
         }
 
-        return self::_request('api/'.static::_model()."/{$id}/nfse-cancelar", 'POST', array('cancelamento_codigo' => $codigo, 'cancelamento_motivo' => $motivo));
+        return self::_request(
+            'api/'.static::_model()."/{$id}/nfse-cancelar",
+            'POST',
+            array('cancelamento_codigo' => $codigo, 'cancelamento_motivo' => $motivo)
+        );
     }
 
     /**
@@ -232,7 +236,9 @@ class FaturaSimples_Venda extends FaturaSimples
         $dados = array();
 
         if (!preg_match("/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/", $dataRecebimento)) {
-            throw new Exception(__CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD');
+            throw new Exception(
+                __CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD'
+            );
         }
 
         $dados['data_recebimento'] = $dataRecebimento;
@@ -262,12 +268,22 @@ class FaturaSimples_Venda extends FaturaSimples
      *
      * @return string JSON
      */
-    public static function boletoAtualizar($id, $parcela, $dataVencimento, $valor, $multa = null, $multaTotal = null, $jurosMensal = null, $jurosMensalTotal = null)
-    {
+    public static function boletoAtualizar(
+        $id,
+        $parcela,
+        $dataVencimento,
+        $valor,
+        $multa = null,
+        $multaTotal = null,
+        $jurosMensal = null,
+        $jurosMensalTotal = null
+    ) {
         $dados = array();
 
         if (!preg_match("/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/", $dataVencimento)) {
-            throw new Exception(__CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD');
+            throw new Exception(
+                __CLASS__.': Data de Recebimento precisa ser informada e estar no padrão ISO8601: YYYY-MM-DD'
+            );
         }
 
         $dados['data_vencimento_novo'] = $dataVencimento;

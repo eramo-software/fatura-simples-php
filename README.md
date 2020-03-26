@@ -1,4 +1,4 @@
-API do Fatura Simples em PHP
+API da Fatura Simples em PHP
 ========
 [![Build Status](https://travis-ci.org/eramo-software/fatura-simples-php.svg?branch=master)](https://travis-ci.org/eramo-software/fatura-simples-php)
 
@@ -12,19 +12,12 @@ PHP 5.3+
 Instalação com Composer
 ------------
 
-Você pode instalar a interface via [Composer](http://getcomposer.org/). Adicione ao seu arquivo **composer.json**:
+Depois de instalado o [Composer](http://getcomposer.org/) execute:
 
-    {
-      "require": {
-        "eramo-software/fatura-simples-php": "dev-master"
-      }
-    }
-    
-E depois execute:
-
+    composer require eramo-software/fatura-simples-php
     composer install
 
-Para usar, ou utilize o autoload do [Composer Autoloader](https://getcomposer.org/doc/00-intro.md#autoloading):
+Utilize o [Composer Autoloader](https://getcomposer.org/doc/00-intro.md#autoloading):
 
     require_once('vendor/autoload.php');
     
@@ -97,8 +90,4 @@ Para executar os testes você precisa instalar o PHPUnit, usando composer execut
 
 Para executar os testes:
 
-    php vendor/bin/phpunit test/FaturaSimples/
-
-
-
-
+    php ./vendor/bin/phpunit test/FaturaSimples/
