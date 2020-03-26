@@ -7,7 +7,7 @@ Registre-se para começar a usar em https://www.faturasimples.com.br
 Requerimentos
 ------------
 
-PHP 5.3+
+PHP 5.6+
 
 Instalação com Composer
 ------------
