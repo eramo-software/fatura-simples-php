@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/../../lib/FaturaSimples.php';
-
 class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -96,7 +94,10 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function testNfseCancelar()
     {
-        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_ERRO_EMISSAO), true);
+        $result = json_decode(
+            FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_ERRO_EMISSAO),
+            true
+        );
 
         $this->assertContains('api/venda/47165/nfse-cancelar', $result['request_uri']);
         $this->assertEquals('POST', $result['method']);
@@ -111,7 +112,10 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
     {
         $motivo = 'motivo do cancelamento preicsa ser informado quando o tipo de cancelamento é outros';
 
-        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, $motivo), true);
+        $result = json_decode(
+            FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, $motivo),
+            true
+        );
 
         $this->assertContains('api/venda/47165/nfse-cancelar', $result['request_uri']);
         $this->assertEquals('POST', $result['method']);
@@ -127,7 +131,10 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function testNfseCancelar3()
     {
-        $result = json_decode(FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, 'muito pequeno'), true);
+        $result = json_decode(
+            FaturaSimples_Venda::nfseCancelar(47165, FaturaSimples_Venda::NFSE_CANCELAR_OUTROS, 'muito pequeno'),
+            true
+        );
     }
 
     /**
@@ -279,7 +286,10 @@ class FaturaSimples_VendaTest extends PHPUnit_Framework_TestCase
      */
     public function testBoletoAtualizar()
     {
-        $result = json_decode(FaturaSimples_Venda::boletoAtualizar(1, 3, '2015-12-30', 123.45, 1.23, 3.21, 2.11, 2.3), true);
+        $result = json_decode(
+            FaturaSimples_Venda::boletoAtualizar(1, 3, '2015-12-30', 123.45, 1.23, 3.21, 2.11, 2.3),
+            true
+        );
 
         $this->assertContains('api/venda/1/boleto-atualizar', $result['request_uri']);
 

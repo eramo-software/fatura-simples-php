@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/../../lib/FaturaSimples.php';
-
 class FaturaSimplesTest extends PHPUnit_Framework_TestCase
 {
     /**
