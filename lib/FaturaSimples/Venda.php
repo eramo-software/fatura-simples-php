@@ -302,26 +302,18 @@ class FaturaSimples_Venda extends FaturaSimples
 
         if (floatval($multa) > 0) {
             $dados['multa'] = $multa;
-        } else {
-            throw new Exception(__CLASS__.': A Multa precisa ser um inteiro ou float');
         }
 
         if (floatval($multaTotal) > 0) {
             $dados['multa_total'] = $multaTotal;
-        } else {
-            throw new Exception(__CLASS__.': A Multa Total precisa ser um inteiro ou float');
         }
 
         if (floatval($jurosMensal) > 0) {
             $dados['juros_mensal'] = $jurosMensal;
-        } else {
-            throw new Exception(__CLASS__.': O Juros Mensal precisa ser um inteiro ou float');
         }
 
         if (floatval($jurosMensalTotal) > 0) {
             $dados['juros_mensal_total'] = $jurosMensalTotal;
-        } else {
-            throw new Exception(__CLASS__.': O Juros Mensal Total precisa ser um inteiro ou float');
         }
 
         return self::_request('api/'.static::_model()."/{$id}/boleto-atualizar", 'POST', $dados);
